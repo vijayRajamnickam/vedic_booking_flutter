@@ -20,6 +20,23 @@ class AppTheme {
         error: AppColors.cancelled,
       ),
       scaffoldBackgroundColor: AppColors.background,
+      textTheme: const TextTheme(
+        displayLarge:   TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        displayMedium:  TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        displaySmall:   TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        headlineLarge:  TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        headlineMedium: TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        headlineSmall:  TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        titleLarge:     TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        titleMedium:    TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        titleSmall:     TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        bodyLarge:      TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        bodyMedium:     TextStyle(fontFamily: 'Poppins', color: AppColors.textSecondary),
+        bodySmall:      TextStyle(fontFamily: 'Poppins', color: AppColors.textSecondary),
+        labelLarge:     TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
+        labelMedium:    TextStyle(fontFamily: 'Poppins', color: AppColors.textSecondary),
+        labelSmall:     TextStyle(fontFamily: 'Poppins', color: AppColors.textSecondary),
+      ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.white,
@@ -80,8 +97,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        padding:
-            const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -117,6 +133,23 @@ class AppTheme {
         error: AppColors.cancelled,
       ),
       scaffoldBackgroundColor: AppColors.darkBackground,
+      textTheme: const TextTheme(
+        displayLarge:   TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        displayMedium:  TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        displaySmall:   TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        headlineLarge:  TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        headlineMedium: TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        headlineSmall:  TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        titleLarge:     TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        titleMedium:    TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        titleSmall:     TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        bodyLarge:      TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        bodyMedium:     TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextSecondary),
+        bodySmall:      TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextSecondary),
+        labelLarge:     TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextPrimary),
+        labelMedium:    TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextSecondary),
+        labelSmall:     TextStyle(fontFamily: 'Poppins', color: AppColors.darkTextSecondary),
+      ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.darkSurface,
         foregroundColor: AppColors.white,
@@ -180,8 +213,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        padding:
-            const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
