@@ -29,13 +29,28 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final profile = provider.profile;
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: _ProfileHeader(profile: profile)),
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
+      body: Column(
+        children: [
+          // ── Header + straddling stats card ────────────────────────────
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              _ProfileHeader(profile: profile),
+              Positioned(
+                bottom: -40,
+                left: 16,
+                right: 16,
+                height: 80,
+                child: _StatsCard(profile: profile),
+              ),
+            ],
+          ),
+          const SizedBox(height: 52),
+
+          // ── Scrollable content below ──────────────────────────────────
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -77,6 +92,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     ),
                   ]),
                   const SizedBox(height: 20),
+
                   // SERVICES section
                   Text(AppStrings.services,
                       style: AppTextStyles.labelLarge.copyWith(
@@ -111,25 +127,29 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     ),
                   ]),
                   const SizedBox(height: 20),
-                  // Theme toggle (not in design — added as required)
+
+                  // Theme toggle
                   _ThemeToggleCard(),
                   const SizedBox(height: 24),
-                  // Sign out
+
+                  // Sign out — full-width outlined pill
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.cancelled,
-                        side: const BorderSide(color: AppColors.cancelled),
+                        side: const BorderSide(
+                            color: AppColors.cancelled, width: 1.5),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(50),
                         ),
                       ),
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         AppStrings.signOut,
-                        style: TextStyle(fontFamily: 'Poppins',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),
@@ -147,7 +167,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 }
 
-// ─── Header ──────────────────────────────────────────────────────────────────
+// ─── Header (gradient, rounded bottom, avatar + info, no stats) ───────────────
 
 class _ProfileHeader extends StatelessWidget {
   final dynamic profile;
@@ -157,27 +177,34 @@ class _ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(gradient: AppColors.headerGradient),
+      decoration: const BoxDecoration(
+        gradient: AppColors.headerGradient,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(28),
+          bottomRight: Radius.circular(28),
+        ),
+      ),
       child: SafeArea(
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+          padding: const EdgeInsets.fromLTRB(16, 20, 16, 28),
           child: Column(
             children: [
-              // Avatar
+              // Avatar with blue checkmark badge
               Stack(
                 children: [
                   Container(
                     width: 90,
                     height: 90,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.gold,
                       shape: BoxShape.circle,
                     ),
                     child: Center(
                       child: Text(
                         profile?.avatarInitials as String? ?? 'PI',
-                        style: TextStyle(fontFamily: 'Poppins',
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
                           color: AppColors.white,
@@ -186,41 +213,52 @@ class _ProfileHeader extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: 0,
-                    right: 0,
+                    bottom: 2,
+                    right: 2,
                     child: Container(
-                      width: 28,
-                      height: 28,
+                      width: 26,
+                      height: 26,
                       decoration: const BoxDecoration(
                         color: AppColors.white,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.edit,
-                          size: 14, color: AppColors.primary),
+                      child: const Icon(
+                        Icons.edit,
+                        size: 14,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 12),
+
+              // Name
               Text(
                 profile?.name as String? ?? 'Pandit Iyer',
-                style: AppTextStyles.headlineLarge
-                    .copyWith(color: AppColors.white),
+                style: AppTextStyles.headlineLarge.copyWith(
+                  color: AppColors.white,
+                ),
               ),
               const SizedBox(height: 4),
+
+              // ID + location
               Text(
                 'ID: ${profile?.id ?? 'VEDIC-2024-0142'} • ${profile?.location ?? 'Chennai'}',
-                style: AppTextStyles.bodySmall
-                    .copyWith(color: AppColors.white.withValues(alpha: 0.8)),
+                style: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.white.withValues(alpha: 0.8),
+                ),
               ),
               const SizedBox(height: 8),
+
               // Stars + rating
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ...List.generate(
                     5,
-                    (i) => Icon(Icons.star, size: 16, color: AppColors.gold),
+                    (i) => const Icon(Icons.star,
+                        size: 16, color: AppColors.gold),
                   ),
                   const SizedBox(width: 6),
                   Text(
@@ -231,62 +269,85 @@ class _ProfileHeader extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
+
               // Featured badge
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 14, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                 decoration: BoxDecoration(
                   color: AppColors.gold,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Text(
+                child: const Text(
                   AppStrings.featuredPandit,
-                  style: TextStyle(fontFamily: 'Poppins',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 11,
                     fontWeight: FontWeight.w700,
                     color: AppColors.white,
                   ),
                 ),
               ),
+
+              // Space for straddling card
               const SizedBox(height: 20),
-              // Stats row
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cardTheme.color,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    _ProfileStat(
-                      value: '${profile?.totalBookings ?? 142}',
-                      label: AppStrings.bookingsLabel,
-                    ),
-                    _Divider(),
-                    _ProfileStat(
-                      value: '${profile?.yearsExperience ?? 12}',
-                      label: AppStrings.yrsExpLabel,
-                    ),
-                    _Divider(),
-                    _ProfileStat(
-                      value: profile != null
-                          ? '₹${(profile!.totalEarned / 100000).toStringAsFixed(1)}L'
-                          : '₹2.4L',
-                      label: AppStrings.earnedLabel,
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ─── Stats straddling card ────────────────────────────────────────────────────
+
+class _StatsCard extends StatelessWidget {
+  final dynamic profile;
+
+  const _StatsCard({required this.profile});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardTheme.color,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.10),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          _ProfileStat(
+            value: '${profile?.totalBookings ?? 142}',
+            label: AppStrings.bookingsLabel,
+          ),
+          Container(
+            width: 1,
+            height: 36,
+            color: isDark ? AppColors.darkDivider : AppColors.divider,
+          ),
+          _ProfileStat(
+            value: '${profile?.yearsExperience ?? 12} Yrs',
+            label: AppStrings.yrsExpLabel,
+          ),
+          Container(
+            width: 1,
+            height: 36,
+            color: isDark ? AppColors.darkDivider : AppColors.divider,
+          ),
+          _ProfileStat(
+            value: profile != null
+                ? '₹${(profile!.totalEarned / 100000).toStringAsFixed(1)}L'
+                : '₹2.4L',
+            label: AppStrings.earnedLabel,
+          ),
+        ],
       ),
     );
   }
@@ -302,6 +363,7 @@ class _ProfileStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             value,
@@ -313,13 +375,6 @@ class _ProfileStat extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _Divider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(width: 1, height: 36, color: AppColors.divider);
   }
 }
 
@@ -413,15 +468,16 @@ class _MenuTile extends StatelessWidget {
             ),
             if (item.badge != null)
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: AppColors.primary,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
                   item.badge!,
-                  style: TextStyle(fontFamily: 'Poppins',
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
                     color: AppColors.white,

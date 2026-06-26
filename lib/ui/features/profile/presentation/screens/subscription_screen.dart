@@ -23,10 +23,12 @@ class SubscriptionScreen extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      color: AppColors.confirmedSurface,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppColors.confirmed.withValues(alpha: 0.15)
+                          : AppColors.confirmedSurface,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                          color: AppColors.confirmed.withValues(alpha: 0.3)),
+                          color: AppColors.confirmed.withValues(alpha: 0.4)),
                     ),
                     child: Row(
                       children: [
@@ -200,6 +202,7 @@ class _PlanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -210,7 +213,8 @@ class _PlanCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             border: isActive
                 ? Border.all(color: AppColors.primary, width: 2)
-                : Border.all(color: AppColors.divider),
+                : Border.all(
+                    color: isDark ? AppColors.darkDivider : AppColors.divider),
             boxShadow: isActive
                 ? [
                     BoxShadow(
@@ -243,10 +247,13 @@ class _PlanCard extends StatelessWidget {
                 children: [
                   Text(
                     price,
-                    style: TextStyle(fontFamily: 'Poppins',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
                       fontSize: 28,
                       fontWeight: FontWeight.w800,
-                      color: AppColors.primaryDark,
+                      color: isDark
+                          ? AppColors.primaryLight
+                          : AppColors.primaryDark,
                     ),
                   ),
                   const SizedBox(width: 4),
@@ -255,7 +262,9 @@ class _PlanCard extends StatelessWidget {
                     child: Text(
                       priceSuffix,
                       style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.primary,
+                        color: isDark
+                            ? AppColors.primaryLight
+                            : AppColors.primary,
                       ),
                     ),
                   ),
@@ -272,7 +281,11 @@ class _PlanCard extends StatelessWidget {
                             ? Icons.check_circle
                             : Icons.check_circle_outline,
                         size: 16,
-                        color: isActive ? AppColors.primary : AppColors.textSecondary,
+                        color: isActive
+                            ? AppColors.primary
+                            : (isDark
+                                ? AppColors.darkTextSecondary
+                                : AppColors.textSecondary),
                       ),
                       const SizedBox(width: 8),
                       Flexible(

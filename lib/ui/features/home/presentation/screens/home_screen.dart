@@ -75,7 +75,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
+                    // const SizedBox(height: 12),
                     _StatsGrid(provider: hp),
                     const SizedBox(height: 24),
 
@@ -309,6 +309,7 @@ class _StatsGrid extends StatelessWidget {
       crossAxisCount: 2,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
       childAspectRatio: 1.35,

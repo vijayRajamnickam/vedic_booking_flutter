@@ -97,39 +97,45 @@ class _DetailHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(gradient: AppColors.headerGradient),
+      decoration: const BoxDecoration(
+        gradient: AppColors.headerGradient,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(28),
+          bottomRight: Radius.circular(28),
+        ),
+      ),
       child: SafeArea(
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 16, 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.fromLTRB(8, 8, 16, 24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: AppColors.white),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '#${booking.id} • ${booking.date}',
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.white.withValues(alpha: 0.7),
-                          fontSize: 11,
-                        ),
+              IconButton(
+                icon: const Icon(Icons.arrow_back, color: AppColors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              const SizedBox(width: 4),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '#${booking.id} • ${booking.date}',
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.white.withValues(alpha: 0.7),
+                        fontSize: 11,
                       ),
-                      Text(
-                        booking.service,
-                        style: AppTextStyles.headlineLarge.copyWith(
-                          color: AppColors.white,
-                        ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      booking.service,
+                      style: AppTextStyles.headlineLarge.copyWith(
+                        color: AppColors.white,
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -145,17 +151,18 @@ class _PendingBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: AppColors.pendingSurface,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.pending.withValues(alpha: 0.3)),
+        color: AppColors.pending.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.pending.withValues(alpha: 0.4)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.hourglass_empty, color: AppColors.pending, size: 16),
-          const SizedBox(width: 6),
+          const Text('⏳', style: TextStyle(fontSize: 16)),
+          const SizedBox(width: 8),
           Text(
             AppStrings.awaitingConfirmation,
             style: AppTextStyles.bodyMedium.copyWith(
@@ -436,7 +443,7 @@ class _BookingInfo extends StatelessWidget {
                       style: AppTextStyles.bodyLarge.copyWith(
                         fontWeight: FontWeight.w500,
                       ),
-                      textAlign: TextAlign.end,
+                      textAlign: TextAlign.start,
                     ),
                   ),
                 ],
@@ -521,12 +528,14 @@ class _PayRow extends StatelessWidget {
 class _MapPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       height: 160,
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: isDark ? AppColors.darkCard : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.divider),
+        border: Border.all(
+            color: isDark ? AppColors.darkDivider : AppColors.divider),
       ),
       child: Stack(
         children: [

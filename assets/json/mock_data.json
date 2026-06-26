@@ -33,7 +33,7 @@
     "today": 3200,
     "thisWeek": 18000,
     "thisYear": 240000,
-    "month": "May 2026",
+    "month": "Jun 2026",
     "serviceBreakdown": [
       { "name": "Homam", "amount": 48000, "percent": 42, "emoji": "🔥" },
       { "name": "Pooja", "amount": 23500, "percent": 28, "emoji": "🕉️" },
@@ -46,7 +46,7 @@
         "title": "Ganesh Homam Payout",
         "bookingRef": "#BK-2845",
         "customer": "Arun Sharma",
-        "date": "2026-05-06",
+        "date": "06 Jun 2026",
         "amount": 35000,
         "type": "credit"
       },
@@ -55,7 +55,7 @@
         "title": "Satyanarayan Pooja Payout",
         "bookingRef": "#BK-2846",
         "customer": "Priya Devi",
-        "date": "2026-05-07",
+        "date": "07 Jun 2026",
         "amount": 12500,
         "type": "credit"
       },
@@ -64,7 +64,7 @@
         "title": "Bank Withdrawal",
         "bookingRef": null,
         "customer": "HDFC Bank •••1234",
-        "date": "2026-05-04",
+        "date": "04 Jun 2026",
         "amount": 50000,
         "type": "debit"
       }
@@ -194,7 +194,7 @@
       "service": "Satyanarayan Pooja",
       "serviceEmoji": "🕉️",
       "duration": "1–2 Hours",
-      "date": "2026-05-07",
+      "date": "07 Jun 2026",
       "time": "11:00 AM",
       "location": "Priya's Residence, T. Nagar",
       "attendees": "~15 persons",
@@ -221,7 +221,7 @@
       "service": "Vastu Homam",
       "serviceEmoji": "🏠",
       "duration": "3 Hours",
-      "date": "2026-05-06",
+      "date": "06 Jun 2026",
       "time": "9:00 AM",
       "location": "Arun's New Home, Velachery",
       "attendees": "~30 persons",

@@ -36,8 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: const BoxDecoration(gradient: AppColors.splashGradient),
         child: SafeArea(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(flex: 2),
+              // const Spacer(flex: 2),
               // Logo circle
               Container(
                 width: 210,
@@ -81,7 +82,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   .fadeIn(duration: 600.ms)
                   .slideY(begin: 0.3, end: 0),
 
-              const Spacer(flex: 2),
+              const SizedBox(height: 20),
 
               // Get Started button
               Padding(
@@ -96,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   .fadeIn(duration: 600.ms)
                   .slideY(begin: 0.4, end: 0),
 
-              const SizedBox(height: 60),
+              const SizedBox(height: 100),
             ],
           ),
         ),

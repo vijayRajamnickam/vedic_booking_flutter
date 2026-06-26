@@ -400,7 +400,7 @@ class _BookingCard extends StatelessWidget {
                       r.$3,
                       style: AppTextStyles.bodyLarge
                           .copyWith(fontWeight: FontWeight.w500),
-                      textAlign: TextAlign.end,
+                      textAlign: TextAlign.start,
                     ),
                   ),
                 ],
